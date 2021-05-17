@@ -1,0 +1,37 @@
+<div style="width: 30%;margin: auto;">
+        <form style="display:grid;" [formGroup]="carFormGroup">
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Company Name</mat-label>
+                    <input matInput placeholder="name" formControlName="name">
+                    <mat-error *ngIf="name?.hasError('required')">Name is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Model</mat-label>
+                    <input matInput placeholder="Model" formControlName="model">
+                    <mat-error *ngIf="model?.hasError('required')">Model is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Manufactured Year</mat-label>
+                    <input matInput placeholder="Year" type="number" formControlName="made">
+                    <mat-error *ngIf="made?.hasError('required')">Year is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Color</mat-label>
+                    <input matInput placeholder="Color" formControlName="color">
+                    <mat-error *ngIf="color?.hasError('required')">Color is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Price</mat-label>
+                    <input matInput placeholder="Price" type="number" step="100" formControlName="price">
+                    <mat-error *ngIf="price?.hasError('required')">Price is required</mat-error>
+                </mat-form-field>
+
+            <button mat-stroked-button color="accent" class="btn-block" style="width:100%" type="submit"
+                (click)="addCar()" [disabled]="!carFormGroup.valid">Add Car</button>
+        </form>
+</div>

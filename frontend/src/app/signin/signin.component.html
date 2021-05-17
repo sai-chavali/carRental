@@ -1,0 +1,20 @@
+<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Sign In</mat-card-title>
+        </mat-card-header>
+
+        <form class="example-form" [formGroup]="signinFormGroup">
+            <mat-card-content>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" formControlName="email">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Password" type="password" formControlName="password"> 
+                </mat-form-field>
+            </mat-card-content>
+            <button mat-stroked-button color="accent" class="btn-block" type="submit" style="width:100%" (click)="signIn()">Sign-in</button>
+        </form>
+    </mat-card>
+</div>

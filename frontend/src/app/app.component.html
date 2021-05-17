@@ -1,0 +1,23 @@
+<mat-toolbar color="primary" class="app-header">
+  <div><a [routerLink]="['/home']" class="positronx">RentaCar</a></div>
+  <span class="nav-tool-items">
+    <button mat-button (click)="singOut()" *ngIf="user$ | async ; else login">SignOut</button>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/mybookings']">
+        <span>My Bookings</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/addCar']">
+        <span>Add Car</span>
+      </button>
+    </mat-menu>
+    <ng-template #login>
+      <button mat-button routerLink="signin" routerLinkActive="active">Signin</button>
+    <button mat-button mat-raised-button routerLink="register" routerLinkActive="active">Signup</button>
+    </ng-template>
+  </span>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
