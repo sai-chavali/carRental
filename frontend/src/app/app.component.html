@@ -1,8 +1,8 @@
 <mat-toolbar color="primary" class="app-header">
   <div><a [routerLink]="['/home']" class="positronx">RentaCar</a></div>
   <span class="nav-tool-items">
-    <button mat-button (click)="singOut()" *ngIf="user$ | async ; else login">SignOut</button>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <button mat-button (click)="singOut()" *ngIf="isloggedIn$ | async ; else login">SignOut</button>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" *ngIf="isloggedIn$ | async ;">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">

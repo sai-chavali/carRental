@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {concatMap, finalize, map} from 'rxjs/operators';
 import { User, UserBookingsResponse } from './models';
 
@@ -8,8 +8,11 @@ import { User, UserBookingsResponse } from './models';
   providedIn: 'root'
 })
 export class UserService {
-  res: Observable<any>;
-  user: Observable<User|null>;
+  private loggedIn =  new BehaviorSubject<Boolean>(true);
+  isloggedIn$ = this.loggedIn.asObservable().pipe(
+    map(user => user === false)
+  )
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,17 +27,23 @@ export class UserService {
   signInUser(user:any){
     return this.httpClient.post<User>('/api/users/login', user,{observe: 'response'}).pipe(
       finalize(() => {
-        this.getUser();
+        this.loggedIn.next(false);
       }));
   }
 
   getUser(){
-    this.user = this.httpClient.get<User>('/api/users/me').pipe(map(user => user));
+    this.httpClient.get<User>('/api/users/me').subscribe(res => {
+      this.loggedIn.next(false);
+    }, err => {
+      console.error('error ', err);
+      this.loggedIn.next(true);
+    })
   }
 
   logOut(){
-    this.user = new Observable<null>();
-    return this.httpClient.post<any>('/api/users/logOut',{});
+    return this.httpClient.post<any>('/api/users/logOut',{}).pipe(finalize(() => {
+      this.loggedIn.next(true);
+    }));
   }
 
   getMyBookings(){

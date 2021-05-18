@@ -12,15 +12,15 @@ import { UserService } from './user.service';
 })
 export class AppComponent implements OnInit {
   title = 'frontend';
-  user$: Observable<User|null>;
+  isloggedIn$: Observable<boolean>;
 
 
-  constructor(private userService: UserService,  private router: Router) {}
+  constructor(private userService: UserService,  private router: Router) {
+    this.isloggedIn$ = this.userService.isloggedIn$
+  }
 
   ngOnInit() {
     this.userService.getUser();
-    this.user$ = this.userService.user.pipe(map(res => res))
-    console.log(`user$`, this.user$);
   }
 
   singOut() {

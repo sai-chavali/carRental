@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CustomSnackbarService } from '../custom-snackbar.service';
 import { UserService } from '../user.service';
 import { passwordMatchValidator } from './passwordMatchValidator';
 
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
   minPw = 8;
   registerFormGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router, public cs:CustomSnackbarService) {
     this.registerFormGroup = this.formBuilder.group({});
    }
 
@@ -40,7 +41,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSuccess(){
-    this.router.navigate(['/signin']);
+    this.router.navigate(['/','signin']);
+    this.cs.open("User Registered Successfully");
   }
 
   onError(){
