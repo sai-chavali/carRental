@@ -40,14 +40,14 @@ public class UserResource {
 
     @POST
     @Path("/add")
-    public String addUser(@Valid User user) {
+    public Response addUser(@Valid User user) {
         User userEmail = userDAO.findByEmail(user.getEmail());
         if (userEmail != null) {
-            return "Email address already exists. Please try again";
+            return Response.status(400,"Email already exists").build();
         }
         user.setPassword(user.getHashedPassword());
         userDAO.insert(user);
-        return "User Registered Successfully";
+        return Response.status(201).build();
     }
 
     @POST

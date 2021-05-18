@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   displayedColumns =
       ['name', 'model', 'made', 'color', 'price', 'status','action'];
 
-  constructor(private carService: CarService, public dialog: MatDialog,  public cs:CustomSnackbarService) {
+  constructor(private carService: CarService, public dialog: MatDialog, public cs:CustomSnackbarService) {
   }
 
   applyFilter(event: Event) {

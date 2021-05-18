@@ -40,25 +40,25 @@ export class RegisterComponent implements OnInit {
       this.password2?.setErrors(null);
   }
 
-  onSuccess(){
+  onSuccess(str:any = "User Registered Successfully"){
     this.router.navigate(['/','signin']);
-    this.cs.open("User Registered Successfully");
+    this.cs.open(str);
   }
 
-  onError(){
-    console.log("Failed");
+  onError(err:any){
+    console.log(err.message);
+    this.cs.open(err.message);
   }
 
   addUser(){
     if(this.registerFormGroup.valid){
       console.log(`save user Details`);
       this.registerFormGroup.removeControl("password2");
-      console.log(`this.registerFormGroup.value`, this.registerFormGroup.value);
       this.userService.registerUser(this.registerFormGroup.value).subscribe(res => {
         this.onSuccess();
     }, err => {
         console.error('error ', err);
-        this.onError();
+        this.onError(err);
     });
     }
   }
