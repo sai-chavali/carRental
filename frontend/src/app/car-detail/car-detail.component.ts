@@ -39,9 +39,15 @@ export class CarDetailComponent implements OnInit {
   }
 
   book(){
-    this.carService.addBooking(this.id, this.range.value.start, this.range.value.end).subscribe(res => {
+    this.carService.addBooking(this.id, this.parseDate(this.range.value.start), this.parseDate(this.range.value.end)).subscribe(res => {
       console.log(res);
     });
+  }
+
+  parseDate(date: Date):Date{
+    date.setDate(date.getDate() + 1)
+    const li = date.toISOString().split('T')
+    return new Date(li[0]+ 'T00:00:00Z')
   }
 
 }

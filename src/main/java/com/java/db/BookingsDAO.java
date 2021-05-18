@@ -25,6 +25,6 @@ public interface BookingsDAO {
     @SqlUpdate("INSERT INTO car_rent.bookings(car_id, user_id, start_time, end_time, price) VALUES (:car_id,:user_id,:start_time,:end_time, :price)")
     int addBooking(@Bind("car_id") int car_id, @Bind("user_id") Long user_id, @Bind("start_time") LocalDateTime start_time, @Bind("end_time") LocalDateTime end_time, @Bind("price")BigDecimal price);
 
-    @SqlQuery("select count(*) from car_rent.bookings where car_id = :car_id and :start_time BETWEEN start_time and end_time and :end_time BETWEEN start_time and end_time")
+    @SqlQuery("select count(*) from car_rent.bookings where car_id = :car_id and (:start_time BETWEEN start_time and end_time or :end_time BETWEEN start_time and end_time)")
     int checkTimingsForCar(@Bind("car_id") int car_id, @Bind("start_time") LocalDateTime start_time, @Bind("end_time") LocalDateTime end_time);
 }
